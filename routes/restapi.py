@@ -21,6 +21,6 @@ def filelines():
         input=request.get_json()
         file=getDataFile('a')
         for x in input['data']:
-            file.write(x+"\n")
+            file.write("\n"+x)
         file.close()
         return 'success'
