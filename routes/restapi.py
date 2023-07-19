@@ -17,4 +17,7 @@ def filelines():
         for x in file.readlines():
             lines.append(x)
         return jsonify({'data':lines})
-
+    if request.method == 'POST':
+        data=request.get_json()
+        print(data, type(data))
+        return 'success'
