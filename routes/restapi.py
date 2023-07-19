@@ -13,11 +13,14 @@ def greet(name):
 def filelines():
     if request.method == 'GET':
         lines=[]
-        file=getDataFile()
+        file=getDataFile('r')
         for x in file.readlines():
             lines.append(x)
         return jsonify({'data':lines})
     if request.method == 'POST':
-        data=request.get_json()
-        print(data, type(data))
+        input=request.get_json()
+        file=getDataFile('a')
+        for x in input['data']:
+            file.write(x+"\n")
+        file.close()
         return 'success'
