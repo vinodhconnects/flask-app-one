@@ -46,3 +46,22 @@ def updatePerson(sno):
     except:
         print(e)
         return jsonify({'status':"some issue"}), 500
+
+@app.route('/api/people/<int:sno>',methods=['DELETE'])
+def deletePerson(sno):
+    try:
+        person=People.query.get(sno)
+        if(person):
+           db.session.delete(person)
+           db.session.commit()
+           return jsonify({'status':"successfully processed"})
+        else:
+            raise RecordNotFoundError("No record with sno "+str(sno))
+    except RecordNotFoundError as e:
+        return {'status':str(e)}, 204
+    except:
+        print(e)
+        return jsonify({'status':"some issue"}), 500
+  
+
+
