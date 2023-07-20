@@ -1,6 +1,7 @@
 from config import app,db
 from dbmodels import People
 from flask import jsonify, request
+from utilities import RecordAlreadyExistsError,RecordNotFoundError
 
 @app.route('/api/people',methods=['GET','POST'])
 def dbops():
@@ -24,3 +25,24 @@ def dbops():
                 return jsonify({'status':"Primary key already exists"}), 500
             
             return  jsonify({'status':"unsuccessful"}), 500
+        
+
+@app.route('/api/people/<int:sno>',methods=['PUT','PATCH'])
+def updatePerson(sno):
+    try:
+        person=People.query.get(sno)
+        if(person):
+            input=request.get_json()
+            if('name' in input.keys()):
+                person.name=input['name']
+            if('city' in input.keys()):
+                person.city=input['city']
+            db.session.commit()
+            return jsonify({'status':"success"})
+        else:
+            raise RecordNotFoundError("No record with sno "+str(sno))
+    except RecordNotFoundError as e:
+        return {'status':str(e)}, 500
+    except:
+        print(e)
+        return jsonify({'status':"some issue"}), 500
