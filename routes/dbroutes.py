@@ -6,6 +6,5 @@ from flask import jsonify, request
 def dbops():
     if request.method=='GET':
         people=People.query.all()
-        people=[str(x) for x in people]
-        print(people,type(people))
+        people=[x.serialize() for x in people]
         return jsonify({'people': people})
