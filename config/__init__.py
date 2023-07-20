@@ -2,7 +2,7 @@ from flask import Flask,send_from_directory
 from flask_sqlalchemy import SQLAlchemy
 import os
 
-app=Flask(__name__) # Flask object that manages entire application
+app=Flask(__name__,template_folder="../templates") # Flask object that manages entire application
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
