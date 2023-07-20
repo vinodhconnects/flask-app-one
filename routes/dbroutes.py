@@ -8,3 +8,12 @@ def dbops():
         people=People.query.all()
         people=[x.serialize() for x in people]
         return jsonify({'people': people})
+    if request.method=='POST':
+        input=request.get_json()
+        person=People(sno=input['sno'],name=input['name'],city=input['city'])
+        try:
+            db.session.add(person)
+            db.session.commit
+            return jsonify({'status': "success"}), 201
+        except:
+            return jsonify({'status':"unsuccessful"}), 500
