@@ -1,5 +1,5 @@
 from config import app,db
-from flask import render_template
+from flask import render_template,request
 from dbmodels import People
 
 
@@ -9,12 +9,12 @@ def uihome():
 
 @app.route("/webapp/people",methods=["GET","POST"])
 def dbpeopleui():
-    """if request.method=="POST":
+    if request.method=="POST":
         sno=request.form['sno']
         name=request.form['name']
         city=request.form['city']
         person=People(sno=sno,name=name,city=city)
         db.session.add(person)
-        db.session.commit()"""
+        db.session.commit()
     peoplelist=People.query.all()
     return render_template('people.html', plist = peoplelist)
