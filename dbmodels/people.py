@@ -15,5 +15,7 @@ class People(db.Model):
                 'name': self.name,
                 'city': self.city
             }
+    def serializeordered(self): 
+        return '{"sno":'+str(self.sno)+', "name":'+self.name+' , "city":'+self.city+"}"
     def __repr__(self):
         return str(self.serialize())
