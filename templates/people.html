@@ -1,0 +1,31 @@
+{% extends 'base.html' %} 
+{% block content %}
+   <h3> People Data </h3>
+   <form action="../webapp/people" method="POST">
+   <table id="ftable">
+   <tr><th>Sno</th><td><input type="text" name="sno"></td></tr>
+   <tr><th>Name</th><td><input type="text" name="name"></td></tr>
+   <tr><th>City</th><td><input type="text" name="city"></td></tr>
+   <tr><td colspan="2"><button type="submit">Save Person Details</button></td></tr>
+   </table>
+    </form>
+    <table id="ptable">
+        <thead>
+             <th>Sno</th>
+             <th>Name</th>
+             <th>City</th>
+        </thead>
+        <tbody>
+            
+                {% for person in plist %}
+                <tr>
+                  <td>{{ person['sno'] }}</td>
+                  <td>{{ person['name'] }}</td>
+                  <td>{{ person['city'] }}</td>
+                </tr>
+                {% endfor %}
+            
+        </tbody>
+    </table>
+
+{% endblock %}
