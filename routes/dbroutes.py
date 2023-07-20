@@ -15,5 +15,10 @@ def dbops():
             db.session.add(person)
             db.session.commit()
             return jsonify({'status': "success"}), 201
-        except:
-            return jsonify({'status':"unsuccessful"}), 500
+        except Exception as e:
+            print(e)
+            print(str(e.__class__))
+            if(str(e.__class__)=="<class 'sqlalchemy.exc.IntegrityError'>"):
+                return jsonify({'status':"Primary key already exists"}), 500
+            
+            return  jsonify({'status':"unsuccessful"}), 500
